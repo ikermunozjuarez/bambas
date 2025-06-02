@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $contraseña = $_POST['contraseña'];
 
-    $sql = "SELECT * FROM usuaris WHERE email = ? LIMIT 1";
+    $sql = "SELECT * FROM usuarios WHERE email = ? LIMIT 1";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($usuario = $resultat->fetch_assoc()) {
         if ($contraseña === $usuario['contraseña']) {
-            $_SESSION['usuario'] = $usuari['nombre'];
-            $_SESSION['rol'] = $usuari['rol'];
+            $_SESSION['usuario'] = $usuario['nombre'];
+            $_SESSION['rol'] = $usuario['rol'];
             header("Location: admin.php");
             exit();
         } else {
@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>
